@@ -25,14 +25,17 @@ public class LotService {
 
     @Transactional
     public Lot saveLot(LotDto lotDto) {
-        if (lotDto != null) {
-            log.info("Trying to save a lot");
+        log.info("Trying to save a lot");
+        if (lotDto == null) {
+            throw new IllegalArgumentException("LotDto cannot be null");
+        }
+        try {
             Lot lot = lotMapper.lotByLotDto(lotDto);
             Lot savedLot = lotRepository.save(lot);
             log.info("Lot saved successfully");
             return savedLot;
-        } else {
-            throw new IllegalArgumentException("LotDto cannot be null");
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("An error occurred while saving the lot");
         }
     }
 
