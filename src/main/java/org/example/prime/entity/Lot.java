@@ -33,5 +33,4 @@ public class Lot {
     @OneToMany(mappedBy = "lot", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Reservation> reservation;
-
 }
